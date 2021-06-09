@@ -26,6 +26,7 @@ public class HomePage extends Utils{
     private By _loginButtonOnFacebook = By.cssSelector("label#loginbutton");
     private By _clickOnContinue = By.xpath("//a[contains(@class, 'button-1 register-continue-button')]");
     private By _clickOnDigitalDownload = By.xpath("//a[contains(@href, '/digital-downloads')]");
+    private By _clickOnLoginButton = By.xpath("//a[contains(@class, 'ico-login')]");
 
 
     public void clickOnRegisterButton()
@@ -55,10 +56,24 @@ public class HomePage extends Utils{
     public void verifyCurrencySymbolInEachPrice(){
         String currencyNameSelected = getSelectedTextFromDropDown(_selectCurrency);
         String expectedCurrencySymbol = getCurrencySymbol(currencyNameSelected);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<WebElement> pricelist = driver.findElements(_priceList);
 
+
         for (WebElement element : pricelist){
+
+
             String priceSymbolActual = element.getText().substring(0,1);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Assert.assertEquals(priceSymbolActual,expectedCurrencySymbol);
         }
         System.out.println("currency Verified successfully :" + currencyNameSelected+ " as "+expectedCurrencySymbol);
@@ -66,6 +81,7 @@ public class HomePage extends Utils{
 
     public void changeCurrency(){
         //select Euro currency
+        waitForClickable(_selectEuro, 120);
         selectFromDropdownByVisibleText(_selectEuro, loadProperty.getProperty("selectcurrency"));
         productList(_actualpricelist);
     }
@@ -128,6 +144,12 @@ public class HomePage extends Utils{
         clickOnElement(_clickOnContinue);
         waitForClickable(_clickOnDigitalDownload, 120);
         clickOnElement(_clickOnDigitalDownload);
+
+    }
+
+    public void loginFunction()
+    {
+    clickOnElement(_clickOnLoginButton);
 
     }
 

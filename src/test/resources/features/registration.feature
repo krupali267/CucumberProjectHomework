@@ -1,7 +1,7 @@
 @all
 Feature: registration
 
-  //@Test
+  @register
   Scenario: User should be able to register successfully
 
     Given user is on registration page

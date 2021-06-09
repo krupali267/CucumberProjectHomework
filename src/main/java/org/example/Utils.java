@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,10 @@ public class Utils extends BasePage {
     public static void waitForClickable(By by, int time){
         WebDriverWait wait = new WebDriverWait(driver,time);
         wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+    public static void waitForClickableElement(WebElement element, int time){
+        WebDriverWait wait = new WebDriverWait(driver,time);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     // method to select from drop down by value
@@ -55,6 +60,7 @@ public class Utils extends BasePage {
     {
         return driver.findElement(by).getText();
     }
+
     // method to enter text
     public static void enterText(By by, String text){
         driver.findElement(by).sendKeys(text);
@@ -65,6 +71,7 @@ public class Utils extends BasePage {
     {
         driver.findElement(by).click();
     }
+
     public static String dateStamp (){
         SimpleDateFormat format = new SimpleDateFormat("ddmmyyHHmmss");
         return format.format(new Date());
@@ -75,6 +82,8 @@ public class Utils extends BasePage {
         Select select = new Select(driver.findElement(by));
         return select.getFirstSelectedOption().getText();
     }
+
+    // method for screenshot
     public  static void captureScreenShot (String screenShotName){
         File screenShotFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try{
@@ -82,6 +91,10 @@ public class Utils extends BasePage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    // verification method
+    public static void assertURL (String url){
+        Assert.assertTrue(driver.getCurrentUrl().equals(url));
     }
 
 }

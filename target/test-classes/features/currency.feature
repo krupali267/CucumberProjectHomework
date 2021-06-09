@@ -1,7 +1,7 @@
 @ll
   Feature: currency selector
 
-    //@Test
+    @currency
     Scenario: user should be able to change the currency
       Given user is on homepage
       When user changes the currency to Euro

@@ -1,7 +1,7 @@
-@ll
+
   Feature: new online comment added
 
-   // @Test
+    @Test
     Scenario: user should be able to add and see new comment
       Given user is on homepage
       And click on new online store is open !

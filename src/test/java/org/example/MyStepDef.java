@@ -1,6 +1,8 @@
 package org.example;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,6 +18,7 @@ public class MyStepDef {
     PaymentMethod paymentMethod = new PaymentMethod();
     ShoppingCart shoppingCart = new ShoppingCart();
     OrderPlacedVerification orderPlacedVerification = new OrderPlacedVerification();
+    LoginFunction loginFunction = new LoginFunction();
 
 
 
@@ -103,5 +106,30 @@ public class MyStepDef {
     public void user_is_able_to_buy_the_selected_product() {
     orderPlacedVerification.verifyOrderIsPlaced();
     }
+
+
+    @When("^user clicks on login button$")
+    public void userClicksOnLoginButton() {
+        homePage.loginFunction();
+    }
+
+
+    @Then("^user should not be able to login$")
+    public void userShouldNotBeAbleToLogin() {
+        loginFunction.loginButton();
+    }
+
+    @And("^user type \"([^\"]*)\"and \"([^\"]*)\"$")
+    public void userTypeAnd(String emailId, String password){
+        loginFunction.verifyCurrentURL();
+        loginFunction.loginDetails(emailId,password);
+    }
+
+    @And("^user should get \"([^\"]*)\"$")
+    public void userShouldGet(String errorMessage){
+        loginFunction.verificationOfErrorMessage(errorMessage);
+
+    }
+
 
 }
